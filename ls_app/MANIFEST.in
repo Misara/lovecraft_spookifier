@@ -1,0 +1,3 @@
+graft ls_app/templates
+graft ls_app/static
+include ls_app/schema.sql
