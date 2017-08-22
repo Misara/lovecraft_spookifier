@@ -34,7 +34,7 @@ So I started thinking, it wouldn't be that hard to make a quick app that replace
 * hplovecraft.com/writings/texts/
 
 ## Instalation
-In file ls_app:
+In folder ls_app:
 * create/run a virtualenv
 * `pip install .`
 * `export FLASK_APP=ls_app`
