@@ -3,6 +3,7 @@ The flask application controls and website structure
 """
 import os
 import sqlite3
+from .process_text import spookify_adjectives, remove_adjectives
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 
@@ -66,13 +67,23 @@ def show_entries():
     return render_template('show_entries.html', entries=entries)
 
 
-@app.route('/<id>')
+@app.route('/<int:id>')
 def show_text(id):
     """ displays a text, unspookified """
     db = get_db()
     cur = db.execute('select * from entries where id=?', [id])
     entry = cur.fetchone()
     return render_template('show_text.html', entry=entry)
+
+
+@app.route('/spookify/<int:id>', methods=['POST'])
+def spookify_text(id):
+    """ displays a text, spookified """
+    db = get_db()
+    cur = db.execute('select * from entries where id=?', [id])
+    entry = cur.fetchone()
+    #entry.text = spookify_adjectives(entry.text)
+    return render_template('show_text_sp.html', entry=entry)
 
 
 @app.route('/add', methods=['POST'])
@@ -83,3 +94,9 @@ def add_entry():
     db.commit()
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
+
+"""
+@app.context_processor
+def utility_processor():
+    return dict(spookify_adjectives=spookify_adjectives)
+"""
