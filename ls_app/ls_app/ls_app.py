@@ -82,8 +82,8 @@ def spookify_text(id):
     db = get_db()
     cur = db.execute('select * from entries where id=?', [id])
     entry = cur.fetchone()
-    #entry.text = spookify_adjectives(entry.text)
-    return render_template('show_text_sp.html', entry=entry)
+    text = spookify_adjectives(entry[2])
+    return render_template('show_text_sp.html', entry=entry, text=text)
 
 
 @app.route('/add', methods=['POST'])
