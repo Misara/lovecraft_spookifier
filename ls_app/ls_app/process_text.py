@@ -1,16 +1,26 @@
 import nltk
 from nltk.tokenize import word_tokenize
+from nltk.tokenize.moses import MosesDetokenizer
 #from bs4 import BeautifulSoup
 
 
 def spookify_adjectives(raw):
     """ Replaces all adjectives in provided text with 'spooky' """
     #raw_text = BeautifulSoup(raw).getText()
-    #tok_text = word_tokenize(raw)
-    #for word in range(len(tok_text)):
-    #    if nltk.pos_tag(tok_text[word][1], tagset='universal')[1] is 'ADJ':
-    #        tok_text[word][0] = 'spooky'
-    return "Passed to spookify"
+    d = MosesDetokenizer()
+    tok_text = word_tokenize(raw)
+    tok_text = nltk.pos_tag(tok_text)
+    text = []
+
+    for i in range(len(tok_text)):
+        word = tok_text[i]
+        if word[1] == 'JJ' or word[1] == 'JJR' or word[1] == 'JJS':
+            text += ['spooky']
+        else:
+            text += [word[0]]
+    text = d.detokenize(text)
+    return ' '.join(text)
+
 
 
 def remove_adjectives(raw):
