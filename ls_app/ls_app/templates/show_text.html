@@ -4,7 +4,6 @@
     <form action="{{ url_for('spookify_text', id=entry.id) }}" method="post" class="sp_text">
         <input type="submit" value="Spookify">
     </form>
-    <button type="button">Remove Adjectives</button>
 </div>
 <div class=entry>
     <h2>{{ entry.title }}</h2>{{ entry.text|safe }}
